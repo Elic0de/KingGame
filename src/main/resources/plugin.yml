@@ -1,0 +1,4 @@
+name: KingGame
+version: ${project.version}
+main: si.f5.hatosaba.kinggame.KingGame
+api-version: 1.16
