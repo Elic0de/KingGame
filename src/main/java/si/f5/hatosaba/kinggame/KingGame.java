@@ -34,8 +34,6 @@ public final class KingGame extends JavaPlugin {
         registerCommandHandler(
                 new KingCommand()
         );
-
-
     }
 
     @Override

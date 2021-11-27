@@ -5,8 +5,8 @@ import org.bukkit.entity.Player;
 import si.f5.hatosaba.kinggame.config.Yaml;
 import si.f5.hatosaba.kinggame.game.Game;
 import si.f5.hatosaba.kinggame.manager.UserManager;
+import si.f5.hatosaba.kinggame.util.KGConstants;
 
-import java.util.Optional;
 import java.util.UUID;
 
 public class UserData {
@@ -14,8 +14,8 @@ public class UserData {
     //UUID
     public final UUID uuid;
 
-    //ステータスボード
     private Game gamePlayingNow;
+    private Character role;
 
     private int win;
     private int lose;
@@ -27,8 +27,30 @@ public class UserData {
         this.lose = yaml.getInt("stats.lose");
     }
 
-    public void playGame(Game game) {
+    public void join(Game game) {
         this.gamePlayingNow = game;
+    }
+
+    public void leave() {
+        if(isPlayingGame()) {
+            this.gamePlayingNow = null;
+        }else {
+            asBukkitPlayer().sendMessage("ゲームに参加していません");
+        }
+    }
+
+    public void setRole(Character role) {
+        this.role = role;
+        switch (role) {
+            case '村':
+                asBukkitPlayer().getInventory().addItem(KGConstants.CHAT_HELMET);
+                break;
+            case '狼':
+                break;
+            case '占':
+                break;
+        }
+
     }
 
     //このユーザーに対応したプレイヤーを取得する
